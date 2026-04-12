@@ -200,7 +200,7 @@ npm run typecheck
 
 - **Repositório GitHub:** [https://github.com/FIAP-Cod3X/Challenge_Front](https://github.com/FIAP-Cod3X/Challenge_Front)
 - **Organização Cod3X:** [https://github.com/FIAP-Cod3X](https://github.com/FIAP-Cod3X)
-- **Vídeo no YouTube:** [Link do vídeo](https://youtube.com)
+- **Vídeo no YouTube:** (https://www.youtube.com/watch?v=hSlJAYR6nno)
 
 ---
 
