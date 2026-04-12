@@ -5,24 +5,27 @@ import Footer from "../components/Footer";
 import IntegranteCard from "../components/IntegranteCard";
 import type { Integrante } from "../types";
 
+import gabrielFoto from "../assets/img/gabriel.jpg";
+import guilhermeFoto from "../assets/img/guilherme.jpeg";
+
 const integrantes: Integrante[] = [
   {
     nome: "Gabriel Stuani",
     rm: "RM566682",
     turma: "1TDSPB",
     descricao: "Estudante de Tecnologia na FIAP.",
-    foto: "/img/gabriel.jpg",
+    foto: gabrielFoto,
     github: "https://github.com/Gstuani",
-    linkedin: "https://www.linkedin.com/in/gabriel-stuani-b20930324/",
+    linkedin: "https://www.linkedin.com/in/gabrielstuani/",
   },
   {
     nome: "Guilherme Soares",
     rm: "RM568227",
     turma: "1TDSPB",
     descricao: "Estudante de Tecnologia na FIAP.",
-    foto: "/img/guilherme.jpeg",
+    foto: guilhermeFoto,
     github: "https://github.com/Guilherme-Soares00",
-    linkedin: "https://www.linkedin.com/in/guilherme-soares-3936b8333/",
+    linkedin: "https://www.linkedin.com/in/guilherme-soares-alberti/",
   },
 ];
 

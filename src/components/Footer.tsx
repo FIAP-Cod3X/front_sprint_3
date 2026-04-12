@@ -45,7 +45,7 @@ export default function Footer() {
                 <i className="fa-brands fa-github"></i>
               </a>
               <a
-                href="https://www.linkedin.com/in/gabriel-stuani-b20930324/"
+                href="https://www.linkedin.com/in/gabrielstuani/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
