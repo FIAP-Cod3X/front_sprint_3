@@ -7,6 +7,7 @@ import type { Integrante } from "../types";
 
 import gabrielFoto from "../assets/img/gabriel.jpg";
 import guilhermeFoto from "../assets/img/guilherme.jpeg";
+import erickFoto from "../assets/img/erick.jpeg";
 
 const integrantes: Integrante[] = [
   {
@@ -27,6 +28,15 @@ const integrantes: Integrante[] = [
     github: "https://github.com/Guilherme-Soares00",
     linkedin: "https://www.linkedin.com/in/guilherme-soares-alberti/",
   },
+  {
+    nome: "Erick Ramos Santos",
+    rm: "RM567837",
+    turma: "1TDSPB",
+    descricao: "Estudante de Tecnologia na FIAP.",
+    foto: erickFoto,
+    github: "https://github.com/erickramossantoser",
+    linkedin: "https://www.linkedin.com/in/erickrsantos/",
+  }
 ];
 
 export default function Integrantes() {
