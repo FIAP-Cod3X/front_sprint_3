@@ -221,8 +221,9 @@ Este projeto foi desenvolvido pela equipe **Cod3X**:
 
 | Foto | Nome Completo | RM | Turma | GitHub | LinkedIn |
 |:----:|:-------------:|:--:|:-----:|:------:|:--------:|
-| <img src="./public/img/gabriel.jpg" width="80"> | **Gabriel Stuani** | RM566682 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Gstuani) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/gabriel-stuani-b20930324/) |
-| <img src="./public/img/guilherme.jpeg" width="80"> | **Guilherme Soares** | RM568227 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Guilherme-Soares00) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/guilherme-soares-3936b8333/) |
+| <img src="./public/img/gabriel.jpg" width="80"> | *Gabriel Stuani* | RM566682 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Gstuani) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/gabrielstuani/) |
+| <img src="./public/img/guilherme.jpeg" width="80"> | *Guilherme Soares* | RM568227 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Guilherme-Soares00) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/guilherme-soares-alberti/) |
+| <img src="./public/img/erick.png" width="80"> | *Erick Ramos Santos* | RM567837 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/erickramossantoser) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/erickrsantos/) |
 
 </div>
 

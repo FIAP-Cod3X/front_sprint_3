@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
-  { to: "/", label: "Inicio" },
+  { to: "/", label: "Início" },
   { to: "/sobre", label: "Sobre" },
-  { to: "/solucao", label: "Solucao" },
+  { to: "/solucao", label: "Solução" },
+  { to: "/atendimentos", label: "Atendimentos" },
+  { to: "/solicitantes", label: "Solicitantes" },
   { to: "/integrantes", label: "Integrantes" },
   { to: "/faq", label: "FAQ" },
   { to: "/contato", label: "Contato" },
@@ -29,12 +31,12 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex">
-          <ul className="flex gap-6">
+          <ul className="flex gap-5">
             {navLinks.map((link) => (
               <li key={link.to}>
                 <Link
                   to={link.to}
-                  className={`font-medium transition-colors duration-200 hover:text-accent ${
+                  className={`font-medium transition-colors duration-200 hover:text-accent text-sm ${
                     isActivePath(link.to) ? "text-accent font-semibold" : ""
                   }`}
                 >
@@ -61,7 +63,7 @@ export default function Header() {
 
       <div
         className={`overflow-hidden bg-primary-dark transition-all duration-300 ease-in-out md:hidden ${
-          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          menuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <nav className="mx-auto max-w-6xl px-4 py-4">
