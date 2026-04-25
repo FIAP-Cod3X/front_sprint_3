@@ -7,6 +7,8 @@ import Contato from "./pages/Contato";
 import Integrantes from "./pages/Integrantes";
 import Solucao from "./pages/Solucao";
 import SolucaoDetalhe from "./pages/SolucaoDetalhe";
+import Atendimentos from "./pages/Atendimentos";
+import Solicitantes from "./pages/Solicitantes";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +22,8 @@ export const router = createBrowserRouter([
       { path: "integrantes", element: <Integrantes /> },
       { path: "solucao", element: <Solucao /> },
       { path: "solucao/:id", element: <SolucaoDetalhe /> },
+      { path: "atendimentos", element: <Atendimentos /> },
+      { path: "solicitantes", element: <Solicitantes /> },
     ],
   },
 ]);
