@@ -36,7 +36,7 @@ const integrantes: Integrante[] = [
     foto: erickFoto,
     github: "https://github.com/erickramossantoser",
     linkedin: "https://www.linkedin.com/in/erickrsantos/",
-  }
+  },
 ];
 
 export default function Integrantes() {
@@ -52,10 +52,13 @@ export default function Integrantes() {
         {/* Banner Intro */}
         <section className="bg-gradient-to-r from-primary to-primary-dark text-white py-16">
           <div className="container mx-auto px-4">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4">Integrantes</h1>
+            <h1 className="text-3xl md:text-5xl font-bold mb-4">
+              Integrantes
+            </h1>
+
             <p className="text-lg opacity-90">
-              Conheça a equipe por trás do projeto Cod3X. Somos dedicados a criar
-              soluções que fazem a diferença na vida das pessoas.
+              Conheça a equipe por trás do projeto Cod3X. Somos dedicados a
+              criar soluções que fazem a diferença na vida das pessoas.
             </p>
           </div>
         </section>
@@ -77,18 +80,39 @@ export default function Integrantes() {
             <h2 className="text-2xl font-bold text-primary text-center mb-8">
               Descubra mais sobre nós
             </h2>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Link to="/sobre" className="block p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow text-center">
+              <Link
+                to="/sobre"
+                className="block p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow text-center"
+              >
                 <i className="fa-solid fa-lightbulb text-3xl text-action mb-3"></i>
-                <p className="font-semibold text-primary">Sobre o Projeto</p>
+
+                <p className="font-semibold text-primary">
+                  Sobre o Projeto
+                </p>
               </Link>
-              <Link to="/faq" className="block p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow text-center">
+
+              <Link
+                to="/faq"
+                className="block p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow text-center"
+              >
                 <i className="fa-solid fa-circle-question text-3xl text-primary mb-3"></i>
-                <p className="font-semibold text-primary">Perguntas Frequentes</p>
+
+                <p className="font-semibold text-primary">
+                  Perguntas Frequentes
+                </p>
               </Link>
-              <Link to="/contato" className="block p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow text-center">
+
+              <Link
+                to="/contato"
+                className="block p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow text-center"
+              >
                 <i className="fa-solid fa-envelope text-3xl text-accent mb-3"></i>
-                <p className="font-semibold text-primary">Contato</p>
+
+                <p className="font-semibold text-primary">
+                  Contato
+                </p>
               </Link>
             </div>
           </div>
