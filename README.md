@@ -2,9 +2,9 @@
 
 <div align="center">
 
-![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge)
-![Sprint](https://img.shields.io/badge/Sprint-3%2F4%20Concluída-blue?style=for-the-badge)
-![Progress](https://img.shields.io/badge/Progresso-75%25-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Concluído-brightgreen?style=for-the-badge)
+![Sprint](https://img.shields.io/badge/Sprint-4%2F4%20Concluída-blue?style=for-the-badge)
+![Progress](https://img.shields.io/badge/Progresso-100%25-green?style=for-the-badge)
 
 **Plataforma de gestão inteligente para centralizar e otimizar atendimentos da ONG Turma do Bem**
 
@@ -19,13 +19,14 @@
 O **Cod3X** é uma solução tecnológica desenvolvida especificamente para a **ONG Turma do Bem**, focada em resolver o problema de dispersão de atendimentos em múltiplos canais de comunicação.
 
 ### 🎯 **Problema Identificado**
-A Turma do Bem recebe solicitações através de dois canais principais (WhatsApp e Gmail), tornando difícil o controle, priorização e acompanhamento adequado dos atendimentos.
+A Turma do Bem recebe solicitações através de múltiplos canais (WhatsApp e Gmail), tornando difícil o controle, priorização e acompanhamento adequado dos atendimentos.
 
 ### 💡 **Nossa Solução**
 Uma plataforma web inteligente que:
 - **Centraliza** todos os atendimentos em um local único
 - **Roteia automaticamente** solicitações para voluntários especializados
 - **Acompanha** o status de cada caso em tempo real
+- **Gerencia** solicitantes e beneficiários da ONG
 - **Gera relatórios** gerenciais para tomada de decisões
 
 ---
@@ -44,10 +45,15 @@ Uma plataforma web inteligente que:
 ![React Router](https://img.shields.io/badge/React%20Router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
 ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white)
 
+### **Backend / API**
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Quarkus](https://img.shields.io/badge/Quarkus-4695EB?style=for-the-badge&logo=quarkus&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)
+
 ### **Ferramentas**
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![Font Awesome](https://img.shields.io/badge/Font%20Awesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white)
-![Google Fonts](https://img.shields.io/badge/Google%20Fonts-4285F4?style=for-the-badge&logo=google&logoColor=white)
 
 </div>
 
@@ -56,37 +62,44 @@ Uma plataforma web inteligente que:
 ## 📁 Estrutura de Pastas
 
 ```
-Challenge_Front/
+sprint4/
 ├── public/
-│   ├── img/                    # Imagens e assets estáticos
-│   └── favicon.ico             # Ícone do site
+│   └── img/                    # Imagens e assets estáticos
 ├── src/
+│   ├── assets/
+│   │   └── img/                # Fotos dos integrantes e logo
 │   ├── components/             # Componentes reutilizáveis
 │   │   ├── Card.tsx            # Card genérico com ícone e link
 │   │   ├── Footer.tsx          # Rodapé do site
 │   │   ├── Header.tsx          # Cabeçalho com navegação e menu mobile
 │   │   └── IntegranteCard.tsx  # Card de membro da equipe
+│   ├── hooks/
+│   │   └── useApi.ts           # Hook customizado para consumo de API
 │   ├── pages/                  # Páginas da aplicação
-│   │   ├── Contato.tsx         # Formulário de contato (React Hook Form)
+│   │   ├── Atendimentos.tsx    # CRUD de atendimentos (integração API)
+│   │   ├── Contato.tsx         # Formulário de contato
 │   │   ├── FAQ.tsx             # Perguntas frequentes com busca
 │   │   ├── Home.tsx            # Página inicial
 │   │   ├── Integrantes.tsx     # Apresentação da equipe
 │   │   ├── Sobre.tsx           # Sobre o projeto e Turma do Bem
+│   │   ├── Solicitantes.tsx    # CRUD de solicitantes (integração API)
 │   │   ├── Solucao.tsx         # Módulos da solução
 │   │   └── SolucaoDetalhe.tsx  # Detalhe do módulo (rota dinâmica)
+│   ├── services/
+│   │   └── api.ts              # Camada de acesso à API REST (fetch nativo)
 │   ├── types/
-│   │   └── index.ts            # Interfaces TypeScript
+│   │   └── index.ts            # Interfaces, Union Types e Intersection Types
 │   ├── utils/
 │   │   └── masks.ts            # Máscaras de input (telefone)
 │   ├── app.css                 # Estilos globais (TailwindCSS)
 │   ├── main.tsx                # Ponto de entrada da aplicação
 │   ├── root.tsx                # Layout raiz com Outlet
 │   └── routes.tsx              # Configuração de rotas (React Router)
-├── index.html                  # HTML principal
-├── package.json                # Dependências e scripts
-├── tsconfig.json               # Configuração TypeScript
-├── vite.config.ts              # Configuração Vite
-└── README.md                   # Este arquivo
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── README.md
 ```
 
 ---
@@ -97,19 +110,21 @@ Challenge_Front/
 |--------|------|-----------|
 | 🏠 Home | `/` | Página inicial com hero, cards e benefícios |
 | 💡 Sobre | `/sobre` | Informações sobre o projeto e Turma do Bem |
+| ⚙️ Solução | `/solucao` | Visão geral dos módulos da plataforma |
+| 🔍 Detalhe | `/solucao/:id` | Detalhes de cada módulo (rota dinâmica) |
+| 📋 Atendimentos | `/atendimentos` | CRUD completo integrado à API |
+| 👤 Solicitantes | `/solicitantes` | CRUD completo integrado à API |
 | 👥 Integrantes | `/integrantes` | Apresentação da equipe Cod3X |
 | ❓ FAQ | `/faq` | Perguntas frequentes com busca interativa |
 | 📞 Contato | `/contato` | Formulário validado com React Hook Form |
-| ⚙️ Solução | `/solucao` | Visão geral dos módulos da plataforma |
-| 🔍 Detalhe | `/solucao/:id` | Detalhes de cada módulo (rota dinâmica) |
 
 ---
 
 ## 🖼️ Prévia Visual
 
 <div align="center">
-  <img src="./public/img/sorriso.jpg" alt="Preview visual da home do projeto Cod3X" width="380" />
-  <img src="./public/img/sorrisos.png" alt="Imagem institucional utilizada na página sobre do projeto Cod3X" width="380" />
+  <img src="./src/assets/img/sorriso.jpg" alt="Preview visual da home do projeto Cod3X" width="380" />
+  <img src="./src/assets/img/sorrisos.png" alt="Imagem institucional utilizada na página sobre" width="380" />
 </div>
 
 ---
@@ -143,6 +158,28 @@ A aplicação é totalmente responsiva, adaptando-se a diferentes tamanhos de te
 
 ---
 
+## 🔌 Integração com API
+
+A Sprint 4 integra o front-end com a API REST desenvolvida em Java (Quarkus), hospedada no Render.
+
+### Endpoints consumidos
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `GET` | `/api/atendimentos` | Lista todos os atendimentos |
+| `POST` | `/api/atendimentos` | Cria novo atendimento |
+| `PUT` | `/api/atendimentos/{id}` | Atualiza atendimento |
+| `DELETE` | `/api/atendimentos/{id}` | Remove atendimento |
+| `PUT` | `/api/atendimentos/{id}/status` | Altera status |
+| `GET` | `/api/solicitantes` | Lista todos os solicitantes |
+| `POST` | `/api/solicitantes` | Cadastra solicitante |
+| `PUT` | `/api/solicitantes/{id}` | Atualiza solicitante |
+| `DELETE` | `/api/solicitantes/{id}` | Remove solicitante |
+
+> Toda a comunicação com a API é feita via **Fetch API nativa** (sem bibliotecas externas), com tratamento de erros e estados de loading em todas as requisições.
+
+---
+
 ## 🗓️ Roadmap do Projeto
 
 | Sprint | Status | Título | Progresso |
@@ -150,7 +187,7 @@ A aplicação é totalmente responsiva, adaptando-se a diferentes tamanhos de te
 | **1** | ✅ | **Fundação e Prototipagem** | 100% |
 | **2** | ✅ | **Desenvolvimento e Aprofundamento** | 100% |
 | **3** | ✅ | **Componentização e SPA com React** | 100% |
-| **4** | ⏳ | **Back-end e Integração** | 0% |
+| **4** | ✅ | **Back-end e Integração com API** | 100% |
 
 ---
 
@@ -196,11 +233,18 @@ npm run typecheck
 
 ---
 
-## 🔗 Links
+## 🔗 Links Importantes
 
-- **Repositório GitHub:** [https://github.com/FIAP-Cod3X/Challenge_Front](https://github.com/FIAP-Cod3X/Challenge_Front)
-- **Organização Cod3X:** [https://github.com/FIAP-Cod3X](https://github.com/FIAP-Cod3X)
-- **Vídeo no YouTube:** (https://www.youtube.com/watch?v=hSlJAYR6nno)
+| Recurso | URL |
+|---------|-----|
+| 🔗 Repositório GitHub | [https://github.com/FIAP-Cod3X/Challenge_Front](https://github.com/FIAP-Cod3X/Challenge_Front) |
+| 🏢 Organização GitHub | [https://github.com/FIAP-Cod3X](https://github.com/FIAP-Cod3X) |
+| 🎬 Vídeo YouTube | [https://www.youtube.com/watch?v=hSlJAYR6nno](https://www.youtube.com/watch?v=hSlJAYR6nno) |
+| 🌐 Deploy Vercel | https://cod3x.vercel.app |
+| ⚙️ API Backend | [https://tdb-atendimento.onrender.com](https://tdb-atendimento.onrender.com) |
+| 📖 Documentação API | [https://tdb-atendimento.onrender.com/swagger](https://tdb-atendimento.onrender.com/swagger) |
+
+> ⚠️ Após o deploy na Vercel, atualize o link acima com a URL real.
 
 ---
 
@@ -208,7 +252,6 @@ npm run typecheck
 
 Para dúvidas, sugestões ou informações sobre o projeto:
 
-- **E-mail:** contato@cod3x.com.br
 - **GitHub:** [FIAP-Cod3X](https://github.com/FIAP-Cod3X)
 
 ---
@@ -221,14 +264,14 @@ Este projeto foi desenvolvido pela equipe **Cod3X**:
 
 | Foto | Nome Completo | RM | Turma | GitHub | LinkedIn |
 |:----:|:-------------:|:--:|:-----:|:------:|:--------:|
-| <img src="./public/img/gabriel.jpg" width="80"> | *Gabriel Stuani* | RM566682 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Gstuani) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/gabrielstuani/) |
-| <img src="./public/img/guilherme.jpeg" width="80"> | *Guilherme Soares* | RM568227 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Guilherme-Soares00) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/guilherme-soares-alberti/) |
-| <img src="./public/img/erick.png" width="80"> | *Erick Ramos Santos* | RM567837 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/erickramossantoser) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/erickrsantos/) |
+| <img src="./src/assets/img/gabriel.jpg" width="80"> | **Gabriel Stuani** | RM566682 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Gstuani) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/gabrielstuani/) |
+| <img src="./src/assets/img/guilherme.jpeg" width="80"> | **Guilherme Soares** | RM568227 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Guilherme-Soares00) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/guilherme-soares-alberti/) |
+| <img src="./src/assets/img/erick.png" width="80"> | **Erick Ramos Santos** | RM567837 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/erickramossantoser) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/erickrsantos/) |
 
 </div>
 
 ---
 
 <div align="center">
-  <p>Desenvolvido com ❤️ pela equipe <strong>Cod3X</strong> - 1TDSPB - FIAP 2025</p>
+  <p>Desenvolvido com ❤️ pela equipe <strong>Cod3X</strong> — 1TDSPB — FIAP 2025</p>
 </div>
