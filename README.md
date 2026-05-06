@@ -60,8 +60,6 @@ Uma plataforma web inteligente que:
 ---
 
 ## 📁 Estrutura de Pastas
-
-```
 sprint4/
 ├── public/
 │   └── img/                    # Imagens e assets estáticos
@@ -69,38 +67,37 @@ sprint4/
 │   ├── assets/
 │   │   └── img/                # Fotos dos integrantes e logo
 │   ├── components/             # Componentes reutilizáveis
-│   │   ├── Card.tsx            # Card genérico com ícone e link
-│   │   ├── Footer.tsx          # Rodapé do site
-│   │   ├── Header.tsx          # Cabeçalho com navegação e menu mobile
-│   │   └── IntegranteCard.tsx  # Card de membro da equipe
+│   │   ├── Card.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Header.tsx
+│   │   └── IntegranteCard.tsx
 │   ├── hooks/
 │   │   └── useApi.ts           # Hook customizado para consumo de API
-│   ├── pages/                  # Páginas da aplicação
+│   ├── pages/
 │   │   ├── Atendimentos.tsx    # CRUD de atendimentos (integração API)
-│   │   ├── Contato.tsx         # Formulário de contato
-│   │   ├── FAQ.tsx             # Perguntas frequentes com busca
-│   │   ├── Home.tsx            # Página inicial
-│   │   ├── Integrantes.tsx     # Apresentação da equipe
-│   │   ├── Sobre.tsx           # Sobre o projeto e Turma do Bem
+│   │   ├── Contato.tsx
+│   │   ├── FAQ.tsx
+│   │   ├── Home.tsx
+│   │   ├── Integrantes.tsx
+│   │   ├── Sobre.tsx
 │   │   ├── Solicitantes.tsx    # CRUD de solicitantes (integração API)
-│   │   ├── Solucao.tsx         # Módulos da solução
-│   │   └── SolucaoDetalhe.tsx  # Detalhe do módulo (rota dinâmica)
+│   │   ├── Solucao.tsx
+│   │   └── SolucaoDetalhe.tsx
 │   ├── services/
 │   │   └── api.ts              # Camada de acesso à API REST (fetch nativo)
 │   ├── types/
 │   │   └── index.ts            # Interfaces, Union Types e Intersection Types
 │   ├── utils/
-│   │   └── masks.ts            # Máscaras de input (telefone)
-│   ├── app.css                 # Estilos globais (TailwindCSS)
-│   ├── main.tsx                # Ponto de entrada da aplicação
-│   ├── root.tsx                # Layout raiz com Outlet
-│   └── routes.tsx              # Configuração de rotas (React Router)
+│   │   └── masks.ts
+│   ├── app.css
+│   ├── main.tsx
+│   ├── root.tsx
+│   └── routes.tsx
 ├── index.html
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts
 └── README.md
-```
 
 ---
 
@@ -123,8 +120,8 @@ sprint4/
 ## 🖼️ Prévia Visual
 
 <div align="center">
-  <img src="./src/assets/img/sorriso.jpg" alt="Preview visual da home do projeto Cod3X" width="380" />
-  <img src="./src/assets/img/sorrisos.png" alt="Imagem institucional utilizada na página sobre" width="380" />
+  <img src="./src/assets/img/sorriso.jpg" alt="Preview visual da home" width="380" />
+  <img src="./src/assets/img/sorrisos.png" alt="Imagem institucional" width="380" />
 </div>
 
 ---
@@ -141,7 +138,6 @@ sprint4/
 | **Laranja** | `#e88407` | Ação, botões CTA |
 
 ### ✍️ **Tipografia**
-
 - **Poppins** — Títulos e interface
 - **Montserrat** — Cabeçalhos
 - **Open Sans** — Corpo de texto
@@ -149,8 +145,6 @@ sprint4/
 ---
 
 ## 📱 Responsividade
-
-A aplicação é totalmente responsiva, adaptando-se a diferentes tamanhos de tela:
 
 - **📱 Mobile** (até 480px) — Layout empilhado, menu hambúrguer
 - **📱 Tablet** (768px) — Grid adaptativo
@@ -161,8 +155,6 @@ A aplicação é totalmente responsiva, adaptando-se a diferentes tamanhos de te
 ## 🔌 Integração com API
 
 A Sprint 4 integra o front-end com a API REST desenvolvida em Java (Quarkus), hospedada no Render.
-
-### Endpoints consumidos
 
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
@@ -176,7 +168,7 @@ A Sprint 4 integra o front-end com a API REST desenvolvida em Java (Quarkus), ho
 | `PUT` | `/api/solicitantes/{id}` | Atualiza solicitante |
 | `DELETE` | `/api/solicitantes/{id}` | Remove solicitante |
 
-> Toda a comunicação com a API é feita via **Fetch API nativa** (sem bibliotecas externas), com tratamento de erros e estados de loading em todas as requisições.
+> Toda a comunicação é feita via **Fetch API nativa** (sem bibliotecas externas), com tratamento de erros e estados de loading.
 
 ---
 
@@ -193,43 +185,16 @@ A Sprint 4 integra o front-end com a API REST desenvolvida em Java (Quarkus), ho
 
 ## 🔧 Como Usar
 
-### Pré-requisitos
-
-- [Node.js](https://nodejs.org/) (v18 ou superior)
-- [npm](https://www.npmjs.com/)
-
 ### Instalação
 
 ```bash
-# Clone o repositório
 git clone https://github.com/FIAP-Cod3X/Challenge_Front.git
-
-# Navegue para o diretório
 cd Challenge_Front
-
-# Instale as dependências
 npm install
-```
-
-### Desenvolvimento
-
-```bash
 npm run dev
 ```
 
 A aplicação estará disponível em `http://localhost:5173`
-
-### Build
-
-```bash
-npm run build
-```
-
-### Type Check
-
-```bash
-npm run typecheck
-```
 
 ---
 
@@ -238,7 +203,6 @@ npm run typecheck
 | Recurso | URL |
 |---------|-----|
 | 🔗 Repositório GitHub | [https://github.com/FIAP-Cod3X/Challenge_Front](https://github.com/FIAP-Cod3X/Challenge_Front) |
-| 🏢 Organização GitHub | [https://github.com/FIAP-Cod3X](https://github.com/FIAP-Cod3X) |
 | 🎬 Vídeo YouTube | [https://www.youtube.com/watch?v=hSlJAYR6nno](https://www.youtube.com/watch?v=hSlJAYR6nno) |
 | 🌐 Deploy Vercel | https://cod3x.vercel.app |
 | ⚙️ API Backend | [https://tdb-atendimento.onrender.com](https://tdb-atendimento.onrender.com) |
@@ -250,15 +214,11 @@ npm run typecheck
 
 ## 📧 Contato
 
-Para dúvidas, sugestões ou informações sobre o projeto:
-
 - **GitHub:** [FIAP-Cod3X](https://github.com/FIAP-Cod3X)
 
 ---
 
 ## 👥 Equipe
-
-Este projeto foi desenvolvido pela equipe **Cod3X**:
 
 <div align="center">
 
@@ -266,7 +226,7 @@ Este projeto foi desenvolvido pela equipe **Cod3X**:
 |:----:|:-------------:|:--:|:-----:|:------:|:--------:|
 | <img src="./src/assets/img/gabriel.jpg" width="80"> | **Gabriel Stuani** | RM566682 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Gstuani) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/gabrielstuani/) |
 | <img src="./src/assets/img/guilherme.jpeg" width="80"> | **Guilherme Soares** | RM568227 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Guilherme-Soares00) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/guilherme-soares-alberti/) |
-| <img src="./src/assets/img/erick.png" width="80"> | **Erick Ramos Santos** | RM567837 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/erickramossantoser) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/erickrsantos/) |
+| <img src="./src/assets/img/erick.jpeg" width="80"> | **Erick Ramos Santos** | RM567837 | 1TDSPB | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/erickramossantoser) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/erickrsantos/) |
 
 </div>
 
