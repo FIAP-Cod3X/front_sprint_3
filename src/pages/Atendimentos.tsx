@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { atendimentosService } from "../services/Api";
+import { atendimentosService } from "../services/api";
 import { useApi } from "../hooks/useApi";
 import type {
   Atendimento,
@@ -38,7 +38,7 @@ const emptyForm: AtendimentoRequest = {
   titulo: "",
   descricao: "",
   prioridade: "MEDIA",
-  canal: "FORMULARIO",
+  canal: "PORTAL",
 };
 
 export default function Atendimentos() {
@@ -352,7 +352,7 @@ export default function Atendimentos() {
                     }
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   >
-                    <option value="FORMULARIO">Formulário</option>
+                    <option value="PORTAL">Portal</option>
                     <option value="WHATSAPP">WhatsApp</option>
                     <option value="EMAIL">E-mail</option>
                     <option value="TELEFONE">Telefone</option>

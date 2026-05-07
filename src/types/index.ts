@@ -35,7 +35,7 @@ export type StatusAtendimento =
 
 export type Prioridade = "BAIXA" | "MEDIA" | "ALTA" | "CRITICA";
 
-export type CanalComunicacao = "WHATSAPP" | "EMAIL" | "FORMULARIO" | "TELEFONE";
+export type CanalComunicacao = "WHATSAPP" | "EMAIL" | "PORTAL" | "TELEFONE";
 
 export type PerfilUsuario = "ADMIN" | "OPERADOR" | "VOLUNTARIO";
 
