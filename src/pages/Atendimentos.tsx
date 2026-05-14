@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { atendimentosService } from "../services/api";
+import { atendimentosService, solicitantesService } from "../services/api";
 import { useApi } from "../hooks/useApi";
 import type {
   Atendimento,
   AtendimentoRequest,
   StatusAtendimento,
-  Prioridade,
   CanalComunicacao,
+  Solicitante,
 } from "../types";
 
 const statusLabel: Record<StatusAtendimento, string> = {
@@ -27,18 +27,11 @@ const statusColor: Record<StatusAtendimento, string> = {
   CANCELADO: "bg-red-100 text-red-700",
 };
 
-const prioridadeColor: Record<Prioridade, string> = {
-  BAIXA: "bg-gray-100 text-gray-600",
-  MEDIA: "bg-blue-100 text-blue-600",
-  ALTA: "bg-orange-100 text-orange-600",
-  CRITICA: "bg-red-100 text-red-700 font-bold",
-};
-
 const emptyForm: AtendimentoRequest = {
-  titulo: "",
+  assunto: "",
   descricao: "",
-  prioridade: "MEDIA",
   canal: "PORTAL",
+  solicitanteId: undefined,
 };
 
 export default function Atendimentos() {
@@ -48,6 +41,11 @@ export default function Atendimentos() {
 
   const { data: atendimentos, loading, error, refetch } = useApi(
     () => atendimentosService.listar(),
+    []
+  );
+
+  const { data: solicitantes } = useApi<Solicitante[]>(
+    () => solicitantesService.listar(),
     []
   );
 
@@ -76,10 +74,10 @@ export default function Atendimentos() {
   function abrirEditarForm(a: Atendimento) {
     setEditando(a);
     setForm({
-      titulo: a.titulo,
+      assunto: (a as any).assunto ?? "",
       descricao: a.descricao,
-      prioridade: a.prioridade,
       canal: a.canal,
+      solicitanteId: a.solicitante?.id,
     });
     setSaveError(null);
     setShowForm(true);
@@ -98,8 +96,12 @@ export default function Atendimentos() {
   }
 
   async function handleSalvar() {
-    if (!form.titulo.trim() || !form.descricao.trim()) {
-      setSaveError("Preencha título e descrição.");
+    if (!form.assunto.trim() || !form.descricao.trim()) {
+      setSaveError("Preencha assunto e descrição.");
+      return;
+    }
+    if (!form.solicitanteId) {
+      setSaveError("Selecione um solicitante.");
       return;
     }
     setSaving(true);
@@ -139,18 +141,14 @@ export default function Atendimentos() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow bg-gray-50">
-        {/* Banner */}
         <section className="bg-gradient-to-r from-primary to-primary-dark text-white py-10">
           <div className="container mx-auto px-4">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">Atendimentos</h1>
-            <p className="opacity-90">
-              Gerencie todas as solicitações da Turma do Bem em tempo real.
-            </p>
+            <p className="opacity-90">Gerencie todas as solicitações da Turma do Bem em tempo real.</p>
           </div>
         </section>
 
         <div className="container mx-auto px-4 py-8 max-w-6xl">
-          {/* Toast de sucesso */}
           {successMsg && (
             <div className="mb-4 bg-green-100 text-green-800 border border-green-300 rounded-lg px-4 py-3 flex items-center gap-2">
               <i className="fa-solid fa-circle-check"></i>
@@ -158,24 +156,21 @@ export default function Atendimentos() {
             </div>
           )}
 
-          {/* Toolbar */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
             <div className="flex flex-wrap gap-2">
-              {(["TODOS", "ABERTO", "EM_ANDAMENTO", "AGUARDANDO_RESPOSTA", "RESOLVIDO", "CANCELADO"] as const).map(
-                (s) => (
-                  <button
-                    key={s}
-                    onClick={() => setFiltroStatus(s)}
-                    className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                      filtroStatus === s
-                        ? "bg-primary text-white"
-                        : "bg-white text-gray-600 border border-gray-300 hover:bg-gray-50"
-                    }`}
-                  >
-                    {s === "TODOS" ? "Todos" : statusLabel[s]}
-                  </button>
-                )
-              )}
+              {(["TODOS", "ABERTO", "EM_ANDAMENTO", "AGUARDANDO_RESPOSTA", "RESOLVIDO", "CANCELADO"] as const).map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setFiltroStatus(s)}
+                  className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                    filtroStatus === s
+                      ? "bg-primary text-white"
+                      : "bg-white text-gray-600 border border-gray-300 hover:bg-gray-50"
+                  }`}
+                >
+                  {s === "TODOS" ? "Todos" : statusLabel[s]}
+                </button>
+              ))}
             </div>
             <button
               onClick={abrirNovoForm}
@@ -186,7 +181,6 @@ export default function Atendimentos() {
             </button>
           </div>
 
-          {/* Estado de loading / erro */}
           {loading && (
             <div className="flex justify-center py-16">
               <div className="flex flex-col items-center gap-3 text-gray-500">
@@ -201,16 +195,12 @@ export default function Atendimentos() {
               <i className="fa-solid fa-triangle-exclamation text-2xl mb-2"></i>
               <p className="font-semibold">Não foi possível carregar os atendimentos</p>
               <p className="text-sm mt-1">{error}</p>
-              <button
-                onClick={refetch}
-                className="mt-3 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
-              >
+              <button onClick={refetch} className="mt-3 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm">
                 Tentar novamente
               </button>
             </div>
           )}
 
-          {/* Lista */}
           {!loading && !error && (
             <>
               {filtrados.length === 0 ? (
@@ -221,10 +211,7 @@ export default function Atendimentos() {
               ) : (
                 <div className="grid gap-4">
                   {filtrados.map((a) => (
-                    <div
-                      key={a.id}
-                      className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow"
-                    >
+                    <div key={a.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
                       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -232,14 +219,13 @@ export default function Atendimentos() {
                             <span className={`px-2 py-0.5 rounded-full text-xs ${statusColor[a.status]}`}>
                               {statusLabel[a.status]}
                             </span>
-                            <span className={`px-2 py-0.5 rounded-full text-xs ${prioridadeColor[a.prioridade]}`}>
-                              {a.prioridade}
-                            </span>
                             <span className="px-2 py-0.5 rounded-full text-xs bg-gray-100 text-gray-600">
                               {a.canal}
                             </span>
                           </div>
-                          <h3 className="font-bold text-gray-800 text-lg truncate">{a.titulo}</h3>
+                          <h3 className="font-bold text-gray-800 text-lg truncate">
+                            {(a as any).assunto ?? a.descricao}
+                          </h3>
                           <p className="text-gray-500 text-sm mt-1 line-clamp-2">{a.descricao}</p>
                           {a.solicitante && (
                             <p className="text-xs text-gray-400 mt-2">
@@ -253,19 +239,16 @@ export default function Atendimentos() {
                             onClick={() => abrirEditarForm(a)}
                             className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors text-sm"
                           >
-                            <i className="fa-solid fa-pen"></i>
-                            Editar
+                            <i className="fa-solid fa-pen"></i> Editar
                           </button>
                           <button
                             onClick={() => handleExcluir(a.id)}
                             disabled={deletingId === a.id}
                             className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors text-sm disabled:opacity-50"
                           >
-                            {deletingId === a.id ? (
-                              <i className="fa-solid fa-spinner fa-spin"></i>
-                            ) : (
-                              <i className="fa-solid fa-trash"></i>
-                            )}
+                            {deletingId === a.id
+                              ? <i className="fa-solid fa-spinner fa-spin"></i>
+                              : <i className="fa-solid fa-trash"></i>}
                             Excluir
                           </button>
                         </div>
@@ -279,7 +262,6 @@ export default function Atendimentos() {
         </div>
       </main>
 
-      {/* Modal de formulário */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
@@ -287,77 +269,66 @@ export default function Atendimentos() {
               <h2 className="text-xl font-bold text-primary">
                 {editando ? "Editar Atendimento" : "Novo Atendimento"}
               </h2>
-              <button
-                onClick={fecharForm}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
-              >
+              <button onClick={fecharForm} className="text-gray-400 hover:text-gray-600 transition-colors">
                 <i className="fa-solid fa-xmark text-xl"></i>
               </button>
             </div>
 
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Título *
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Assunto *</label>
                 <input
                   type="text"
-                  value={form.titulo}
-                  onChange={(e) => setForm({ ...form, titulo: e.target.value })}
-                  placeholder="Descreva brevemente o atendimento"
+                  value={form.assunto}
+                  onChange={(e) => setForm({ ...form, assunto: e.target.value })}
+                  placeholder="Assunto do atendimento"
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Descrição *
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Descrição *</label>
                 <textarea
                   value={form.descricao}
                   onChange={(e) => setForm({ ...form, descricao: e.target.value })}
-                  rows={4}
+                  rows={3}
                   placeholder="Detalhes do atendimento..."
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Prioridade
-                  </label>
-                  <select
-                    value={form.prioridade}
-                    onChange={(e) =>
-                      setForm({ ...form, prioridade: e.target.value as Prioridade })
-                    }
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  >
-                    <option value="BAIXA">Baixa</option>
-                    <option value="MEDIA">Média</option>
-                    <option value="ALTA">Alta</option>
-                    <option value="CRITICA">Crítica</option>
-                  </select>
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Solicitante *</label>
+                <select
+                  value={form.solicitanteId ?? ""}
+                  onChange={(e) => setForm({ ...form, solicitanteId: e.target.value ? Number(e.target.value) : undefined })}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  <option value="">Selecione um solicitante...</option>
+                  {(solicitantes ?? []).map((s) => (
+                    <option key={s.id} value={s.id}>{s.nome} — {s.email}</option>
+                  ))}
+                </select>
+                {(solicitantes ?? []).length === 0 && (
+                  <p className="text-xs text-orange-500 mt-1">
+                    <i className="fa-solid fa-triangle-exclamation mr-1"></i>
+                    Cadastre um solicitante primeiro na página de Solicitantes.
+                  </p>
+                )}
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Canal
-                  </label>
-                  <select
-                    value={form.canal}
-                    onChange={(e) =>
-                      setForm({ ...form, canal: e.target.value as CanalComunicacao })
-                    }
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  >
-                    <option value="PORTAL">Portal</option>
-                    <option value="WHATSAPP">WhatsApp</option>
-                    <option value="EMAIL">E-mail</option>
-                    <option value="TELEFONE">Telefone</option>
-                  </select>
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Canal</label>
+                <select
+                  value={form.canal}
+                  onChange={(e) => setForm({ ...form, canal: e.target.value as CanalComunicacao })}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  <option value="PORTAL">Portal</option>
+                  <option value="WHATSAPP">WhatsApp</option>
+                  <option value="EMAIL">E-mail</option>
+                  <option value="TELEFONE">Telefone</option>
+                </select>
               </div>
 
               {saveError && (
@@ -369,10 +340,7 @@ export default function Atendimentos() {
             </div>
 
             <div className="flex gap-3 p-6 border-t">
-              <button
-                onClick={fecharForm}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
-              >
+              <button onClick={fecharForm} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors">
                 Cancelar
               </button>
               <button
@@ -380,17 +348,10 @@ export default function Atendimentos() {
                 disabled={saving}
                 className="flex-1 px-4 py-2 bg-action hover:bg-action-dark text-white font-bold rounded-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                {saving ? (
-                  <>
-                    <i className="fa-solid fa-spinner fa-spin"></i>
-                    Salvando...
-                  </>
-                ) : (
-                  <>
-                    <i className="fa-solid fa-floppy-disk"></i>
-                    {editando ? "Salvar Alterações" : "Abrir Atendimento"}
-                  </>
-                )}
+                {saving
+                  ? <><i className="fa-solid fa-spinner fa-spin"></i> Salvando...</>
+                  : <><i className="fa-solid fa-floppy-disk"></i> {editando ? "Salvar Alterações" : "Abrir Atendimento"}</>
+                }
               </button>
             </div>
           </div>
