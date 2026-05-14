@@ -1,11 +1,33 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { solicitantesService } from "../services/Api";
+import { solicitantesService } from "../services/api";
 import { useApi } from "../hooks/useApi";
-import type { Solicitante, SolicitanteRequest } from "../types";
+import type { Solicitante } from "../types";
 
-const emptyForm: SolicitanteRequest = { nome: "", email: "", telefone: "" };
+type TipoPublico = "DENTISTA_VOLUNTARIO" | "BENEFICIADO" | "DOADOR" | "SOLICITANTE_AJUDA" | "OUTRO";
+
+const tipoLabel: Record<TipoPublico, string> = {
+  DENTISTA_VOLUNTARIO: "Dentista Voluntário",
+  BENEFICIADO: "Beneficiado",
+  DOADOR: "Doador",
+  SOLICITANTE_AJUDA: "Solicitante de Ajuda",
+  OUTRO: "Outro",
+};
+
+interface SolicitanteForm {
+  nome: string;
+  email: string;
+  telefone: string;
+  tipoPublico: TipoPublico;
+}
+
+const emptyForm: SolicitanteForm = {
+  nome: "",
+  email: "",
+  telefone: "",
+  tipoPublico: "SOLICITANTE_AJUDA",
+};
 
 export default function Solicitantes() {
   useEffect(() => {
@@ -19,7 +41,7 @@ export default function Solicitantes() {
 
   const [showForm, setShowForm] = useState(false);
   const [editando, setEditando] = useState<Solicitante | null>(null);
-  const [form, setForm] = useState<SolicitanteRequest>(emptyForm);
+  const [form, setForm] = useState<SolicitanteForm>(emptyForm);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
@@ -42,7 +64,12 @@ export default function Solicitantes() {
 
   function abrirEditarForm(s: Solicitante) {
     setEditando(s);
-    setForm({ nome: s.nome, email: s.email, telefone: s.telefone ?? "" });
+    setForm({
+      nome: s.nome,
+      email: s.email,
+      telefone: s.telefone ?? "",
+      tipoPublico: (s.tipoPublico as TipoPublico) ?? "SOLICITANTE_AJUDA",
+    });
     setSaveError(null);
     setShowForm(true);
   }
@@ -104,9 +131,7 @@ export default function Solicitantes() {
         <section className="bg-gradient-to-r from-primary to-primary-dark text-white py-10">
           <div className="container mx-auto px-4">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">Solicitantes</h1>
-            <p className="opacity-90">
-              Cadastre e gerencie os beneficiários da Turma do Bem.
-            </p>
+            <p className="opacity-90">Cadastre e gerencie os beneficiários da Turma do Bem.</p>
           </div>
         </section>
 
@@ -173,20 +198,19 @@ export default function Solicitantes() {
                         <th className="text-left px-4 py-3 text-gray-600 font-semibold">#</th>
                         <th className="text-left px-4 py-3 text-gray-600 font-semibold">Nome</th>
                         <th className="text-left px-4 py-3 text-gray-600 font-semibold">E-mail</th>
-                        <th className="text-left px-4 py-3 text-gray-600 font-semibold">Telefone</th>
+                        <th className="text-left px-4 py-3 text-gray-600 font-semibold">Tipo</th>
                         <th className="text-right px-4 py-3 text-gray-600 font-semibold">Ações</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filtrados.map((s, idx) => (
-                        <tr
-                          key={s.id}
-                          className={idx % 2 === 0 ? "bg-white" : "bg-gray-50/50"}
-                        >
+                        <tr key={s.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50/50"}>
                           <td className="px-4 py-3 text-gray-400 font-mono">{s.id}</td>
                           <td className="px-4 py-3 font-medium text-gray-800">{s.nome}</td>
                           <td className="px-4 py-3 text-gray-600">{s.email}</td>
-                          <td className="px-4 py-3 text-gray-600">{s.telefone ?? "—"}</td>
+                          <td className="px-4 py-3 text-gray-600">
+                            {tipoLabel[(s.tipoPublico as TipoPublico)] ?? s.tipoPublico ?? "—"}
+                          </td>
                           <td className="px-4 py-3">
                             <div className="flex gap-2 justify-end">
                               <button
@@ -200,11 +224,10 @@ export default function Solicitantes() {
                                 disabled={deletingId === s.id}
                                 className="px-3 py-1 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors text-xs disabled:opacity-50"
                               >
-                                {deletingId === s.id ? (
-                                  <i className="fa-solid fa-spinner fa-spin"></i>
-                                ) : (
-                                  <><i className="fa-solid fa-trash mr-1"></i>Excluir</>
-                                )}
+                                {deletingId === s.id
+                                  ? <i className="fa-solid fa-spinner fa-spin"></i>
+                                  : <><i className="fa-solid fa-trash mr-1"></i>Excluir</>
+                                }
                               </button>
                             </div>
                           </td>
@@ -219,7 +242,6 @@ export default function Solicitantes() {
         </div>
       </main>
 
-      {/* Modal */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
@@ -231,6 +253,7 @@ export default function Solicitantes() {
                 <i className="fa-solid fa-xmark text-xl"></i>
               </button>
             </div>
+
             <div className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Nome *</label>
@@ -242,6 +265,7 @@ export default function Solicitantes() {
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
               </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">E-mail *</label>
                 <input
@@ -252,6 +276,7 @@ export default function Solicitantes() {
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
               </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
                 <input
@@ -262,6 +287,22 @@ export default function Solicitantes() {
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
               </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Público *</label>
+                <select
+                  value={form.tipoPublico}
+                  onChange={(e) => setForm({ ...form, tipoPublico: e.target.value as TipoPublico })}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  <option value="SOLICITANTE_AJUDA">Solicitante de Ajuda</option>
+                  <option value="BENEFICIADO">Beneficiado</option>
+                  <option value="DENTISTA_VOLUNTARIO">Dentista Voluntário</option>
+                  <option value="DOADOR">Doador</option>
+                  <option value="OUTRO">Outro</option>
+                </select>
+              </div>
+
               {saveError && (
                 <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg px-3 py-2 text-sm">
                   <i className="fa-solid fa-triangle-exclamation mr-1"></i>
@@ -269,6 +310,7 @@ export default function Solicitantes() {
                 </div>
               )}
             </div>
+
             <div className="flex gap-3 p-6 border-t">
               <button onClick={fecharForm} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors">
                 Cancelar
@@ -278,11 +320,10 @@ export default function Solicitantes() {
                 disabled={saving}
                 className="flex-1 px-4 py-2 bg-action hover:bg-action-dark text-white font-bold rounded-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                {saving ? (
-                  <><i className="fa-solid fa-spinner fa-spin"></i> Salvando...</>
-                ) : (
-                  <><i className="fa-solid fa-floppy-disk"></i> {editando ? "Salvar" : "Cadastrar"}</>
-                )}
+                {saving
+                  ? <><i className="fa-solid fa-spinner fa-spin"></i> Salvando...</>
+                  : <><i className="fa-solid fa-floppy-disk"></i> {editando ? "Salvar" : "Cadastrar"}</>
+                }
               </button>
             </div>
           </div>
