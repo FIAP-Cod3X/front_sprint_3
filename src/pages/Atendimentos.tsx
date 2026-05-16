@@ -96,8 +96,12 @@ export default function Atendimentos() {
   }
 
   async function handleSalvar() {
-    if (!form.assunto.trim() || !form.descricao.trim()) {
-      setSaveError("Preencha assunto e descrição.");
+    if (!form.assunto.trim()) {
+      setSaveError("Preencha o assunto.");
+      return;
+    }
+    if (form.descricao.trim().length < 30) {
+      setSaveError("A descrição deve ter pelo menos 30 caracteres.");
       return;
     }
     if (!form.solicitanteId) {
@@ -292,9 +296,26 @@ export default function Atendimentos() {
                   value={form.descricao}
                   onChange={(e) => setForm({ ...form, descricao: e.target.value })}
                   rows={3}
-                  placeholder="Detalhes do atendimento..."
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+                  placeholder="Descreva o atendimento com detalhes suficientes (mín. 30 caracteres)..."
+                  className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 resize-none ${
+                    form.descricao.trim().length > 0 && form.descricao.trim().length < 30
+                      ? "border-red-400 focus:ring-red-300"
+                      : "border-gray-300 focus:ring-primary/50"
+                  }`}
                 />
+                <div className="flex justify-between mt-1">
+                  {form.descricao.trim().length > 0 && form.descricao.trim().length < 30 ? (
+                    <p className="text-xs text-red-500">
+                      <i className="fa-solid fa-triangle-exclamation mr-1"></i>
+                      Mínimo de 30 caracteres ({30 - form.descricao.trim().length} restantes)
+                    </p>
+                  ) : (
+                    <span />
+                  )}
+                  <p className={`text-xs ml-auto ${form.descricao.trim().length >= 30 ? "text-green-500" : "text-gray-400"}`}>
+                    {form.descricao.trim().length} caracteres
+                  </p>
+                </div>
               </div>
 
               <div>
