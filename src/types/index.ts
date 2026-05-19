@@ -1,4 +1,3 @@
-
 export interface Integrante {
   nome: string;
   rm: string;
@@ -8,13 +7,13 @@ export interface Integrante {
   github: string;
   linkedin: string;
 }
-
+ 
 export interface FaqItem {
   id: number;
   pergunta: string;
   resposta: string;
 }
-
+ 
 export interface SolucaoItem {
   id: string;
   titulo: string;
@@ -23,8 +22,7 @@ export interface SolucaoItem {
   detalhes: string;
   recursos: string[];
 }
-
-// ─── Enums / Union Types da API ──────────────────────────────────────────────
+ 
 
 export type StatusAtendimento =
   | "ABERTO"
@@ -32,17 +30,17 @@ export type StatusAtendimento =
   | "AGUARDANDO_RESPOSTA"
   | "RESOLVIDO"
   | "CANCELADO";
-
+ 
 export type Prioridade = "BAIXA" | "MEDIA" | "ALTA" | "CRITICA";
-
+ 
 export type CanalComunicacao = "WHATSAPP" | "EMAIL" | "PORTAL" | "TELEFONE";
-
+ 
 export type PerfilUsuario = "ADMIN" | "OPERADOR" | "VOLUNTARIO";
-
+ 
 export type OrigemMensagem = "SISTEMA" | "USUARIO" | "SOLICITANTE";
-
+ 
 // ─── Interfaces da API ───────────────────────────────────────────────────────
-
+ 
 export interface Solicitante {
   id: number;
   nome: string;
@@ -51,14 +49,14 @@ export interface Solicitante {
   tipoPublico?: string;
   createdAt?: string;
 }
-
+ 
 export interface Departamento {
   id: number;
   nome: string;
   descricao?: string;
   ativo: boolean;
 }
-
+ 
 export interface Usuario {
   id: number;
   nome: string;
@@ -66,17 +64,17 @@ export interface Usuario {
   perfil: PerfilUsuario;
   ativo: boolean;
 }
-
+ 
 export interface Mensagem {
   id: number;
   conteudo: string;
   origem: OrigemMensagem;
   createdAt: string;
 }
-
+ 
 export interface Atendimento {
   id: number;
-  titulo: string;
+  assunto: string;
   descricao: string;
   status: StatusAtendimento;
   prioridade: Prioridade;
@@ -87,13 +85,12 @@ export interface Atendimento {
   createdAt: string;
   updatedAt?: string;
 }
-
-
-
+ 
+ 
 export type AtendimentoComMensagens = Atendimento & {
   mensagens: Mensagem[];
 };
-
+ 
 export type AtendimentoComDiagnostico = Atendimento & {
   diagnostico: {
     acaoRecomendada: string;
@@ -101,33 +98,30 @@ export type AtendimentoComDiagnostico = Atendimento & {
     observacoes?: string;
   };
 };
-
-
-
+ 
+ 
 export interface AtendimentoRequest {
-  titulo: string;
+  assunto: string;
   descricao: string;
-  prioridade: Prioridade;
   canal: CanalComunicacao;
   solicitanteId?: number;
-  departamentoId?: number;
 }
-
+ 
 export interface SolicitanteRequest {
   nome: string;
   email: string;
   telefone?: string;
 }
-
-
+ 
+ 
 export type LoadingState = "idle" | "loading" | "success" | "error";
-
+ 
 export interface ApiResponse<T> {
   data: T | null;
   loading: boolean;
   error: string | null;
 }
-
+ 
 export interface PaginatedResponse<T> {
   content: T[];
   totalElements: number;
