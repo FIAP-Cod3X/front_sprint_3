@@ -157,10 +157,10 @@ export default function Sobre() {
                   <p className="text-sm text-gray-600">Responsividade, JavaScript, validações e LocalStorage.</p>
                 </div>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow flex items-center gap-4 border-2 border-action">
-                <span className="bg-action text-white font-bold w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">3</span>
+              <div className="bg-white rounded-xl p-4 shadow flex items-center gap-4">
+                <span className="bg-accent text-white font-bold w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">3</span>
                 <div>
-                  <h3 className="font-bold text-primary">Sprint 3 - Componentização 🔄</h3>
+                  <h3 className="font-bold text-primary">Sprint 3 - Componentização ✅</h3>
                   <p className="text-sm text-gray-600">Migração para React + Vite + TypeScript + TailwindCSS.</p>
                 </div>
               </div>
