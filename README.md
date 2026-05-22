@@ -208,8 +208,6 @@ A aplicação estará disponível em `http://localhost:5173`
 | ⚙️ API Backend | [https://tdb-atendimento.onrender.com](https://tdb-atendimento.onrender.com) |
 | 📖 Documentação API | [https://tdb-atendimento.onrender.com/swagger](https://tdb-atendimento.onrender.com/swagger) |
 
-> ⚠️ Após o deploy na Vercel, atualize o link acima com a URL real.
-
 ---
 
 ## 📧 Contato
