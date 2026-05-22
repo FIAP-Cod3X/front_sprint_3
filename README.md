@@ -203,7 +203,7 @@ A aplicação estará disponível em `http://localhost:5173`
 | Recurso | URL |
 |---------|-----|
 | 🔗 Repositório GitHub | [https://github.com/FIAP-Cod3X/Challenge_Front](https://github.com/FIAP-Cod3X/Challenge_Front) |
-| 🎬 Vídeo YouTube | [https://www.youtube.com/watch?v=hSlJAYR6nno](https://www.youtube.com/watch?v=hSlJAYR6nno) |
+| 🎬 Vídeo YouTube | [https://www.youtube.com/watch?v=zYpjG3acaxk](https://www.youtube.com/watch?v=zYpjG3acaxk) |
 | 🌐 Deploy Vercel | https://project-96yel.vercel.app |
 | ⚙️ API Backend | [https://tdb-atendimento.onrender.com](https://tdb-atendimento.onrender.com) |
 | 📖 Documentação API | [https://tdb-atendimento.onrender.com/swagger](https://tdb-atendimento.onrender.com/swagger) |
