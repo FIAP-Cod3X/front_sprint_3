@@ -188,8 +188,8 @@ A Sprint 4 integra o front-end com a API REST desenvolvida em Java (Quarkus), ho
 ### Instalação
 
 ```bash
-git clone https://github.com/FIAP-Cod3X/Challenge_Front.git
-cd Challenge_Front
+git clone https://github.com/FIAP-Cod3X/front_sprint_3.git
+cd front_sprint_3
 npm install
 npm run dev
 ```
@@ -202,7 +202,7 @@ A aplicação estará disponível em `http://localhost:5173`
 
 | Recurso | URL |
 |---------|-----|
-| 🔗 Repositório GitHub | [https://github.com/FIAP-Cod3X/Challenge_Front](https://github.com/FIAP-Cod3X/Challenge_Front) |
+| 🔗 Repositório GitHub | [https://github.com/FIAP-Cod3X/front_sprint_3](https://github.com/FIAP-Cod3X/front_sprint_3) |
 | 🎬 Vídeo YouTube | [https://www.youtube.com/watch?v=zYpjG3acaxk](https://www.youtube.com/watch?v=zYpjG3acaxk) |
 | 🌐 Deploy Vercel | https://project-96yel.vercel.app |
 | ⚙️ API Backend | [https://tdb-atendimento.onrender.com](https://tdb-atendimento.onrender.com) |
